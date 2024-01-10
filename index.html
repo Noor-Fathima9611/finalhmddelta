@@ -34,7 +34,7 @@
         crossorigin="anonymous">
 
     <!-- Favicon -->
-    <link rel="icon" href="./img/favicon (3).ico" />
+    <link rel="icon" href="./img/HMDLOGO.ico" />
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com/" />
@@ -61,6 +61,363 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" />
 
    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+      /* Container styling */
+      .news-ticker-container {
+        height: 40px;
+        width: 100%;
+        overflow: hidden;
+        background-color: #3498db;
+        /* Blue background color */
+        color: #fff;
+        /* White text color */
+        font-family: "Arial", sans-serif;
+        /* Use a clear and common font */
+        padding: 10px 0;
+        /* Add some padding for better readability and aesthetics */
+        display: flex;
+        align-items: center;
+        /* Center content vertically */
+        justify-content: center;
+        /* Center content horizontally */
+      }
+
+      /* Ticker list styling */
+      #news-ticker {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        white-space: nowrap;
+        animation: tickerAnimation 20s linear infinite;
+      }
+
+      /* Keyframe animation */
+      @keyframes tickerAnimation {
+        0% {
+          transform: translateX(100%);
+        }
+
+        100% {
+          transform: translateX(-100%);
+        }
+      }
+
+      /* Individual news item styling */
+      #news-ticker li {
+        display: inline-block;
+        padding: 10px;
+        font-size: 16px;
+      }
+
+      /* News sticker styling */
+      .new-sticker {
+        display: inline-block;
+        padding: 4px 8px;
+        background-color: #e74c3c;
+        /* Red background color for contrast */
+        color: #fff;
+        /* White text color */
+        border-radius: 4px;
+        margin-right: 8px;
+        font-weight: bold;
+      }
+
+      /* Hover effect for better user interaction */
+      #news-ticker li:hover {
+        background-color: #2c3e50;
+        /* Darker background color on hover */
+        cursor: pointer;
+      }
+
+      /* Responsive styling for smaller screens */
+      @media screen and (max-width: 768px) {
+        #news-ticker li {
+          font-size: 14px;
+        }
+
+        .new-sticker {
+          margin-right: 4px;
+        }
+      }
+
+      /* Modal Styles */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+      }
+
+      .modal.active {
+        display: block;
+        /* or visibility: visible; */
+      }
+
+      .modal-content {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        position: relative;
+        text-align: center;
+      }
+
+      .close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 20px;
+        cursor: pointer;
+      }
+    </style>
+
+    <style>
+      body {
+        margin: 0;
+        font-family: sans-serif;
+        /* background: #101224; */
+      }
+      * {
+        box-sizing: border-box;
+      }
+      .world-map {
+        width: 100%;
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 1em;
+        position: relative;
+      }
+
+      /* .world-map img {
+        width: 50%;
+        height: 50%;
+        object-fit: contain;
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        max-width: 100%; max-height: 100%
+      } */
+      /* .india-map-img {
+        width: 80%;
+        height: 100%;
+        object-fit: contain;
+        align-items: center;
+      } */
+      .title {
+        text-align: center;
+        color: #fff;
+        margin: 2em 0;
+        padding: 0 1em;
+      }
+      .title p {
+        max-width: 500px;
+        margin: 1em auto;
+        line-height: 27px;
+      }
+      .pin {
+        background: #4362f8;
+        position: absolute;
+        width: 0.7em;
+        height: 0.7em;
+        border-radius: 50%;
+      }
+      .pin::before {
+        content: "";
+        background: #4362f8;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        animation: pulse 1.3s ease-in-out infinite;
+      }
+      .pin span {
+        display: inline-block;
+        white-space: nowrap;
+        position: absolute;
+        left: 1.5em;
+        top: 50%;
+        transform: translateY(-50%);
+        background: #fff;
+        border-radius: 3em;
+        padding: 0.3em 0.6em;
+        font-size: 0.9em;
+      }
+      .pin.Qatar {
+        top: 55%; /* Adjust the top percentage */
+        left: 57%; /* Adjust the left percentage */
+      }
+
+      .pin.Kochi {
+        top: 84%; /* Adjust the top percentage */
+        left: 36%; /* Adjust the left percentage */
+      }
+      /* Hide India map by default */
+      .india-map {
+        display: none;
+      }
+
+      @keyframes pulse {
+        100% {
+          opacity: 0;
+          transform: translate(-50%, -50%) scale(2.5);
+        }
+      }
+      @media only screen and (max-width: 767px) {
+        /* Adjust the position of the pins for mobile screens */
+        .pin {
+          font-size: 12px; /* Modify font size for smaller screens */
+        }
+
+        /* Adjust the position of the Qatar pin on the world map */
+        .pin.Qatar {
+          top: 48%; /* Adjust the top position as needed */
+          left: 58%; /* Adjust the left position as needed */
+          transform: translate(-50%, -50%);
+        }
+
+        /* Adjust the position of the Kochi pin on the India map */
+        .pin.Kochi {
+          top: 83%; /* Adjust the top position as needed */
+          left: 43%; /* Adjust the left position as needed */
+          transform: translate(-50%, -50%);
+        }
+      }
+
+      .world-map {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 70vh; /* Set a height for the map container */
+      }
+
+      .map-container {
+        position: relative;
+        max-width: 100%; /* Maximum width */
+        max-height: 100%; /* Maximum height */
+        overflow: hidden;
+      }
+
+      .india-map-img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain; /* Maintain aspect ratio */
+      }
+      .world-map-img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+      .buton-box {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 8px;
+    display: inline-block;
+}
+
+.buton-box button {
+    margin: 5px;
+    padding: 8px 16px;
+    border: none;
+    background-color: #3498db;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.buton-box buton:hover {
+    background-color: #2980b9;
+}
+
+    </style>
+     <style>
+      .container {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .content-section {
+        display: flex;
+        align-items: stretch;
+      }
+
+      .address-section,
+      .map-section {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      /* Adjust the heights to match as needed */
+      .address-section {
+        min-height: 200px; /* Example height for the address section */
+      }
+
+      /* Match the height of map sections to address section */
+      .world-map,
+      .india-map {
+        flex: 1;
+      }
+
+      /* Default styles for larger screens */
+      .containerbranch {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .content-section {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+      }
+
+      .address-section,
+      .map-section {
+        flex: 1;
+        padding: 20px;
+      }
+
+      .address-world,
+      .address-india {
+        margin-bottom: 20px;
+      }
+
+      .world-map,
+      .india-map {
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+      }
+
+      /* Media query for smaller screens (e.g., mobile devices) */
+      @media screen and (max-width: 768px) {
+        .content-section {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .address-section,
+        .map-section {
+          width: 100%;
+        }
+
+        .world-map,
+        .india-map {
+          height: 200px; /* Set a specific height for better mobile display */
+        }
+      }
+    </style>
+
      <style>
      
         
@@ -212,8 +569,8 @@ hr {
 
 <body>
     <nav class="navbar navbar-expand-custom navbar-mainbg">
-        <a class="navbar-brand navbar-logo " href="./index.html"><img src="./img/faviconhmd.ico" style="height: 150px;
-        width: 200px;" alt="">
+        <a class="navbar-brand navbar-logo " href="./index.html"><img src="./img/HMDLOGO.ico" style="height: 150px;
+        width: 160px;" alt="">
             <!-- NatureNurture Agro -->
         </a>
             <i class="fas fa-bars text-white navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -722,6 +1079,159 @@ hr {
             proactively transforming how we do business. In a structured manner "</span></p><br>
           </div>   
       </div>
+
+<!-- <branch start> -->
+    <div class="containerbranch"  >
+      <div class="title" id="ourbranch">
+        <h1 style="color: black">Our Branches</h1>
+        <button class="buton-box" onclick="showWorldMap()" >World Map</button>
+        <button class="buton-box" onclick="showIndiaMap()">India Map</button>
+      </div>
+
+      <div class="content-section">
+        <div class="address-section">
+          <!-- Address content -->
+          <!-- Replace this with your address details -->
+         <div class="address-india">
+            <h2 style="color: #1e2235;">Cochin Address</h2>
+            <p>
+              Office No : 14/390-F7 | 4th Floor KNA Plaza | Kundannoor Jn |
+              Cochin PO Box : 682304
+            </p>
+            <p>City: Cochin </p> 
+			<p>Country:India</p>
+            <p>Phone Number:0484-352872 / 3516220</p>
+          </div>
+
+          <!-- India Address content (hidden by default) -->
+         
+           <div class="address-world">
+            <h2 style="color: #1e2235;">Qatar Address</h2>
+            <p>
+              POB : 60287, Office No : 901, Regency Business Center 2, Old
+              Customs Building, Opposite to MIA Park, Corniche Road
+            </p>
+            <p>City:Doha</p> 
+			<p>Country:Qatar</p>
+            <p>Phone Number: +974 4468 4086</p>
+          </div>
+        </div>
+
+        <div class="map-section">
+          <!-- World Map Section -->
+          <section class="world-map" style="display: block">
+            <div class="world-map">
+              <img
+                src="./img/worldmap.png"
+                alt="World map"
+                class="world-map-img"
+                style="max-width: 100%; height: 100%"
+              />
+            </div>
+            <div class="pin Qatar">
+              <span>Qatar</span>
+            </div>
+          </section>
+
+          <!-- India Map Section -->
+          <section class="india-map" style="display: none">
+            <div class="world-map">
+              <!-- Replace this image with your India map -->
+              <img
+                src="./img/ind.png"
+                alt="India map"
+                class="india-map-img"
+                style="max-width: 100%; height: 100%"
+              />
+              <!-- Kochi Pin -->
+              <div class="pin Kochi">
+                <span>Cochin, India</span>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Start -->
+
+    <section id="contact" class="contact">
+      <div class="container" data-aos="fade-up">
+        <div>
+          <div id="contact-header">
+            <h2 style="color: #1e2235;">CONTACT US</h2>
+          </div>
+
+         <iframe   style="border: 0; width: 100%; height: 270px" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3929.9627047955455!2d76.31576557503038!3d9.937061190165142!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b08732faed24b45%3A0xd962f5e99fd4bd98!2zS05BIFBMQVpBLCDgtJXgtYYg4LSO4LW7IOC0jiDgtKrgtY3gtLLgtL7gtLg!5e0!3m2!1sen!2sin!4v1704873161235!5m2!1sen!2sin" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        
+        </div>
+         <div class="container-fluid py-5 wow fadeInUp" data-wow-delay="0.1s">
+      <div class="container py-5">
+        <div class="row g-5 mb-5">
+          <div class="col-lg-4">
+            <div
+              class="d-flex  wow fadeIn"
+              data-wow-delay="0.1s"
+            >
+              <div
+                class="bg-primary d-flex align-items-center justify-content-center rounded"
+                style="width: 60px; height: 60px"
+              >
+                <i class="fa fa-phone-alt text-white"></i>
+              </div>
+              <div class="ps-4">
+                <h5 class="mb-2" style="color: #1e2235; font-size: 25px; ">Call to ask any question</h5>
+                <h4 class="text-primary mb-0" id="mobile">+91 484 3517638 <br>  +91 484 3516220  </h4>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div
+              class="d-flex align-items-center wow fadeIn"
+              data-wow-delay="0.4s"
+            >
+              <div
+                class="bg-primary d-flex align-items-center justify-content-center rounded"
+                style="width: 60px; height: 60px"
+              >
+                <i class="fa fa-envelope-open text-white"></i>
+              </div>
+              <div class="ps-3">
+                <h5 class="mb-2"  style="color: #1e2235; font-size: 25px;">Email to get free quote</h5>
+                <h4 class="text-primary mb-0" id="email">cs.cok@hamadshipping.com</h4>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div
+              class="d-flex  wow fadeIn"
+              data-wow-delay="0.8s"
+            >
+              <div
+                class="bg-primary d-flex align-items-center justify-content-center rounded"
+                style="width: 60px; height: 60px"
+              >
+                <i class="fa fa-map-marker-alt text-white"></i>
+              </div>
+              <div class="ps-3">
+                <h5 class="mb-2" style="color: #1e2235; font-size: 25px;">Visit our office</h5>
+                <h4 class="text-primary mb-0" id="location">
+			     Office No : 14/390-F7<br>
+                 4th Floor KNA Plaza<br>
+                Kundannoor Jn <br>
+                Cochin PO Box : 682304 <br>
+                 Kerala - India
+				</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact End -->
+
    
     <!-- Footer Start -->
     <div
@@ -742,8 +1252,8 @@ hr {
                 <img
                   id="logoimage"
                   alt="logo"
-                  src="./img/faviconhmd.ico"
-                  style="width: 300px; height: 300px; border-radius: 20px"
+                  src="./img/HMDLOGO.ico"
+                  style="width: 250px; height: 250px; border-radius: 20px"
                 />
               </a>
             </div>
@@ -869,37 +1379,8 @@ hr {
       });
     </script>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/js/swiper.min.js"></script>
-    <script>
-      $(function () {
-        var timelineSwiper = new Swiper(".timeline .swiper-container", {
-          direction: "vertical",
-          loop: false,
-          speed: 1600,
-          pagination: ".swiper-pagination",
-          paginationBulletRender: function (swiper, index, className) {
-            var year = document
-              .querySelectorAll(".swiper-slide")
-              [index].getAttribute("data-year");
-            return '<span class="' + className + '">' + year + "</span>";
-          },
-          paginationClickable: true,
-          nextButton: ".swiper-button-next",
-          prevButton: ".swiper-button-prev",
-          breakpoints: {
-            768: {
-              direction: "horizontal",
-            },
-          },
-        });
-      });
+    
    
-    </script>
-    <script>
-      function toggleFlip(card) {
-  card.classList.toggle('flipped');
-}
-
-    </script>
     <script>
   document.addEventListener("DOMContentLoaded", function() {
     const backToTopButton = document.querySelector('.back-to-top');
@@ -936,6 +1417,28 @@ hr {
   });
 </script>
 
-</body>
+ <script type="module" src="./js/displayticker.js"></script>
+    <script>
+      function showWorldMap() {
+        document.querySelector(".world-map").style.display = "block";
+        document.querySelector(".india-map").style.display = "none";
+      }
 
+      function showIndiaMap() {
+        document.querySelector(".world-map").style.display = "none";
+        document.querySelector(".india-map").style.display = "block";
+      }
+      // Function to show world map and address
+      function showaddressworld() {
+        document.getElementById(".address-world").style.display = "block";
+        document.getElementById(".address-india").style.display = "none";
+      }
+
+      // Function to show India map and address
+      function showaddressindia() {
+        document.getElementById(".address-world").style.display = "none";
+        document.getElementById(".address-india").style.display = "block";
+      }
+    </script>
+  </body>
 </html>
