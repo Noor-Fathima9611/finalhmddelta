@@ -81,7 +81,7 @@ i {
 #navbarSupportedContent>ul>li>a {
 	color: #fff;
 	font-weight: 500;
-	font-size: 15px;
+	font-size: 20px;
 	/* color: rgb(2, 42, 105); */
 	background-color: transparent;
 	transition: all 0.7s;
@@ -294,7 +294,7 @@ font-family: 'poppins', sans-serif;
 	margin: 0 30px;
 	box-shadow: 2px 2px 10px 10px rgba(117, 116, 116, 0.5);
 	height: 700px;
-	min-height: 700px;
+	/* min-height: 700px; */
 	margin-bottom: 70px;
 
 }
@@ -320,7 +320,7 @@ font-family: 'poppins', sans-serif;
 	.shipping-container{
 		width: 100%;
 		margin: 0 auto ;
-		height:1750px;
+		height:1700px;
 	}
 	.shipping-contect{
 		width: 100%;
@@ -761,6 +761,7 @@ img {
    	line-height: 2;
    	/* Adjust the value to add more or less space */
    }
+
 /* deliver-container */
 .deliver-container {
 	margin: 60px 100px;
@@ -769,6 +770,7 @@ img {
 	/* color: #fff; */
 	margin-bottom: 100px;
 }
+
 
 .deliver-content {
 	border: 1px solid #999999;;
@@ -783,8 +785,9 @@ img {
 }
 
 .deliver-content p {
+	line-height: 34px;
 	margin: 30px 70px;
-	font-size: 24px;
+	font-size: 22px;
 }
 
 .deliver-content p span {
